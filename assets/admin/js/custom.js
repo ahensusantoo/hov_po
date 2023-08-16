@@ -136,3 +136,178 @@ function toggleTheme(value) {
   $(".preloader").fadeOut();
 }
 $(".preloader").fadeOut();
+
+
+
+/* ******************************************* */
+/*             HELPER JAVASCRIPT               */
+/* ******************************************* */
+function getJSON(url,data){
+    return JSON.parse($.ajax({
+        type        : 'POST',
+        url         : url,
+        data        : data,
+        dataType    :'json',
+        global      : false,
+        async       : false,
+        beforeSend:function(){
+            $('#loading').show();
+        },
+        complete: function(){
+            $('#loading').hide();
+        },
+        success:function(msg){
+
+        },
+    }).responseText);
+}
+
+// get url_id with java script
+function getUrlVars(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++){
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+
+// $('.pagination').on('click', '.spinner_aktif', function(){
+//     $('#spiner_pagin').show();
+// })
+
+
+function pagination_hal(total_rows, perpage, hal_aktif, url){
+    var pagination = '';
+    var paging = Math.ceil(total_rows / perpage);
+    // var hal_aktif = data.hal_aktif;
+
+    // PREV BUTTON
+    if (hal_aktif == "1"){
+        pagination += `<li class="page-item"><a disabled class="page-link">&laquo</a></li>`
+    }else{
+        pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="`+ url+(parseInt(hal_aktif)-1) +`">&laquo</a></li>`
+    }
+
+    // PAGE PREV
+    if (hal_aktif > 1){
+        for (i=(parseInt(hal_aktif)-2); i < hal_aktif; i++) { 
+            if (i < hal_aktif && i > 0) {
+               pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="`+url+i+`">`+i+`</a></li>`;
+            }
+        }
+    }
+
+    // PAGE ACTIVE
+    pagination += `<li class="page-item active"><a disabled class="page-link">`+hal_aktif+`</a></li>`
+
+    // PAGE NEXT
+    if (hal_aktif < paging){
+        for (i=(parseInt(hal_aktif)+1); i < (parseInt(hal_aktif)+3); i++) { 
+            if (i > hal_aktif && i <= paging) {
+                pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="`+url+i+`">`+i+`</a></li>`;
+            }
+        }
+    }
+
+    //NEXT BUTTON
+    if (hal_aktif == paging){
+        pagination += `<li class="page-item"><a disabled class="page-link">&raquo</a></li>`
+    }else{
+        pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="`+ url+(parseInt(hal_aktif)+1) +`">&raquo</a></li>`
+    }
+
+    return pagination
+}
+
+
+function notifikasi(type, string){
+  var notifikasi = `
+        <div class="alert alert-`+type+` alert-dismissible bg-`+type+` text-white border-0 fade show"
+      role="alert">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        <strong>`+string+`</strong>
+    </div>`
+    return notifikasi
+}
+
+// $(document).ready(function() {
+//     $('.datatable').DataTable( {
+//         "processing": true,
+//     } );
+// } );
+
+// $(function () {
+//     $('.select2').select2()
+//     $('.select2bs4').select2({
+//      theme: 'bootstrap4'
+//     })
+// });
+
+
+// $(function(){
+//   $(".datepicker").datepicker({
+//       format: 'yyyy-mm-dd',
+//       autoclose: true,
+//       locale: 'id',
+//       todayHighlight: true,
+//   });
+//  });
+
+function get_just_number(arg){
+    var bayar = $(arg).val().replace(/[^0-9]/g, '');
+    if (bayar == 0) {bayar = 0}
+    $(arg).val(parseInt(bayar).toLocaleString());
+    // onkeyup="format_nominal(this)"
+}
+
+
+function indo_currency(string){
+    return  parseInt(string).toLocaleString()
+}
+
+function indo_date(date){
+    if(date == null){
+        return date;
+    }else{
+        var date = date
+        var parts = date.split('-')
+        var indo_date = parts[2]+'-'+parts[1]+'-'+parts[0]
+        return indo_date;
+    }
+} 
+
+function indo_date_time(date){
+    var hari = date.substr(0, 10)
+    var time = date.substr(10, 20)
+    var parts = hari.split('-')
+    var indo_date = parts[2]+'-'+parts[1]+'-'+parts[0]+' '+ time
+    return indo_date;
+}
+
+function status_lunas(nominal){
+    var nominal = nominal
+    if(nominal < 0 ){
+        var angka = 0
+    }else{
+        var angka = nominal
+    }
+    return angka
+}
+
+function badge(type, string){
+  return `
+    <span class="mb-1 badge rounded-pill bg-`+type+`">`+string+`</span>`
+}
+
+// $(function() {
+//     $('.datepicker').datepicker({
+//         format : 'dd-mm-yyyy',
+//         autoclose: true,
+//         locale: 'id',
+//         todayHighlight: true,
+//     })
+// });

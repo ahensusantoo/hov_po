@@ -34,7 +34,7 @@ class Admin_Controller extends MY_Controller{
 		// }
 
 		// check dlu ada session tidak, jika tidak ada logout;
-		$this->fungsi->is_logged_in();
+		// $this->fungsi->is_logged_in();
 
 	}//end
 

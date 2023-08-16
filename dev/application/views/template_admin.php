@@ -3,7 +3,7 @@
     <!-- Preloader -->
     
     <div class="preloader">
-        <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+        <img src="<?=base_url()?>uploads/images/pos/logo_hov.jpg" alt="loader" class="lds-ripple img-fluid" />
     </div>
     
     <!-- Body Wrapper -->
@@ -98,6 +98,19 @@
         <div class="body-wrapper">
             <!-- Header Start -->
             
+
+            <style type="text/css" media="screen">
+                .dropdown-menu .judul_master{
+                    font-size: 15px;
+                }
+
+                .dropdown-menu a .bg-top-menu{
+                    background-color: var(--bs-primary);
+                    width: 100%;
+                    border-radius: 5px;
+                    padding: 5px 5px;
+                }
+            </style>
             <header class="app-header"> 
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <ul class="navbar-nav">
@@ -126,14 +139,23 @@
                                             <div class="border-bottom">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <div class="position-relative">
-                                                            <a href="<?=base_url(set_url('users'))?>" class="d-flex align-items-center pb-9 position-relative">
-                                                                <div class="d-inline-block">
-                                                                    <span class="fs-2 d-block text-dark">
+                                                        <div class="position-relative ">
+                                                            <span class="judul_master">MASTER</span>
+                                                            <!-- <a href="<?=base_url(set_url('group'))?>" class="d-flex align-items-center pb-1 position-relative">
+                                                                <div class="d-inline-block bg-top-menu">
+                                                                    <span class="fs-2 d-block text-white">
+                                                                        Manajemen User
+                                                                    </span>
+                                                                </div>
+                                                            </a> -->
+                                                            <a href="<?=base_url(set_url('users'))?>" class="d-flex align-items-center pb-1 position-relative">
+                                                                <div class="d-inline-block bg-top-menu">
+                                                                    <span class="fs-2 d-block text-white">
                                                                         Manajemen User
                                                                     </span>
                                                                 </div>
                                                             </a>
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
@@ -167,7 +189,7 @@
                         </li>
                     </ul>
                     <div class="d-block d-lg-none">
-                        <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/dark-logo.svg" width="180" alt="" />
+                        <img src="<?=base_url()?>uploads/images/pos/logo_hov.jpg" width="35" alt="" />
                     </div>
                     <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="p-2">
@@ -196,7 +218,7 @@
                                             <div class="d-flex align-items-center py-9 mx-7 border-bottom">
                                                 <img src="<?=base_url()?>assets/admin/images/profile/user-1.jpg" class="rounded-circle" width="80" height="80" alt="" />
                                                 <div class="ms-3">
-                                                    <h5 class="mb-1 fs-3"><?=$_SESSION['nama_company']?></h5>
+                                                    <h5 class="mb-1 fs-3"><?=$_SESSION['username_users']?></h5>
                                                     <span class="mb-1 d-block text-dark">Owner</span>
                                                     <p class="mb-0 d-flex text-dark align-items-center gap-2">
                                                         <i class="ti ti-mail fs-4"></i> email@info.com
@@ -213,10 +235,51 @@
                 </nav>
             </header>   
             <!-- Header End -->
+
+            <!--  Mobilenavbar -->
+            <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="mobilenavbar" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <nav class="sidebar-nav scroll-sidebar">
+                    <div class="offcanvas-header justify-content-between">
+                        <img src="<?=base_url()?>uploads/images/pos/logo_hov.jpg" alt="" class="img-fluid" width="50">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body profile-dropdown mobile-navbar" data-simplebar=""  data-simplebar>
+                        <ul id="sidebarnav">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <span>
+                                        <i class="ti ti-apps"></i>
+                                    </span>
+                                    <span class="hide-menu">Apps</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level my-3">
+                                    <li class="sidebar-item py-2">
+                                        <a href="#" class="d-flex align-items-center">
+                                            <div class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center"></div>
+                                            <div class="d-inline-block">
+                                                <h6 class="mb-1 bg-hover-primary">Chat Application</h6>
+                                                <span class="fs-2 d-block fw-normal text-muted">New messages arrived</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="app-email.html" aria-expanded="false">
+                                    <span>
+                                        <i class="ti ti-mail"></i>
+                                    </span>
+                                    <span class="hide-menu">Email</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
         
             <!-- CONTENT -->
             <?= $template ?>
-
 
         </div>
     </div>
