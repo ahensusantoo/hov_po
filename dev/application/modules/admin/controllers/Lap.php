@@ -20,8 +20,6 @@ class Lap extends Admin_Controller {
 			$tgl_akhir = date('Y-m-d');
 		}
 
-
-
 		$record = $this->db->query("
 			SELECT * 
 			FROM transaksi a

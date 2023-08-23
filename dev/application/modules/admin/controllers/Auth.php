@@ -29,7 +29,7 @@ class Auth extends MY_Controller {
 		$username 		= antiSqli($post['username']);
 		$password 	= antiSqli($post['password']);
 		
-		$users = $this->db->query("SELECT * FROM users WHERE (username_users='$username' OR email_users='$username') AND stts_rmv_users IS NULL")->row();
+		$users = $this->db->query("SELECT * FROM mst_users WHERE (username_users='$username' OR email_users='$username') AND stts_rmv_users IS NULL")->row();
 
 		if(empty($users)) {
 			$this->session->set_flashdata('danger', 'username/password anda salah!!!');

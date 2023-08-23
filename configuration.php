@@ -23,7 +23,7 @@
 			// var $_table_prefix = "tbl_";
 			var $_site_name = "hov.com";
 			var $_cms_name = "HOV";
-			var $_limit_perpage = 10;
+			var $_limit_perpage = 2;
 			
 			// var $_first_page = "frontend/home";
 			var $_first_page = "admin/auth";

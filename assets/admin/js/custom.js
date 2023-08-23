@@ -180,23 +180,22 @@ function getUrlVars(){
 // })
 
 
-function pagination_hal(total_rows, perpage, hal_aktif, url){
-    var pagination = '';
+function pagination_hal(total_rows, perpage, hal_aktif, url) {
+    var pagination = '<ul class="pagination justify-content-end">'; // Tambahkan ul tag untuk daftar halaman
     var paging = Math.ceil(total_rows / perpage);
-    // var hal_aktif = data.hal_aktif;
 
     // PREV BUTTON
     if (hal_aktif == "1"){
         pagination += `<li class="page-item"><a disabled class="page-link">&laquo</a></li>`
     }else{
-        pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="`+ url+(parseInt(hal_aktif)-1) +`">&laquo</a></li>`
+        pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="javascript:void(0)" data-halaman="${parseInt(hal_aktif) - 1}" >&laquo</a></li>`
     }
 
     // PAGE PREV
     if (hal_aktif > 1){
         for (i=(parseInt(hal_aktif)-2); i < hal_aktif; i++) { 
             if (i < hal_aktif && i > 0) {
-               pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="`+url+i+`">`+i+`</a></li>`;
+               pagination += `<li class="page-item"><a class="page-link spinner_aktif"href="javascript:void(0)" data-halaman="${parseInt(i)}">`+i+`</a></li>`;
             }
         }
     }
@@ -208,7 +207,7 @@ function pagination_hal(total_rows, perpage, hal_aktif, url){
     if (hal_aktif < paging){
         for (i=(parseInt(hal_aktif)+1); i < (parseInt(hal_aktif)+3); i++) { 
             if (i > hal_aktif && i <= paging) {
-                pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="`+url+i+`">`+i+`</a></li>`;
+                pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="javascript:void(0)" data-halaman="${parseInt(i)}">${i}</a></li>`;
             }
         }
     }
@@ -217,11 +216,18 @@ function pagination_hal(total_rows, perpage, hal_aktif, url){
     if (hal_aktif == paging){
         pagination += `<li class="page-item"><a disabled class="page-link">&raquo</a></li>`
     }else{
-        pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="`+ url+(parseInt(hal_aktif)+1) +`">&raquo</a></li>`
+        pagination += `<li class="page-item"><a class="page-link spinner_aktif" href="javascript:void(0)" data-halaman="${parseInt(hal_aktif) + 1}">&raquo</a></li>`
     }
 
-    return pagination
+    pagination += '</ul>'; // Tutup ul tag untuk daftar halaman
+    return pagination;
 }
+
+
+
+
+
+
 
 
 function notifikasi(type, string){

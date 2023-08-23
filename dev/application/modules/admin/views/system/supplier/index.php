@@ -33,27 +33,27 @@
                         <div class="row">
                             <input type="hidden" name="id" id="id" value="">
                             <div class="col-lg-6">
-                                <div class="group-input" id="notifikasi_nama">
-                                    <label for="nama">Nama Lengkap</label>
-                                    <input type="text" name="nama" id="nama" class="form-control form-control-sm" placeholder="Nama Lengkap" disabled/>
+                                <div class="group-input" id="notifikasi_kode_supplier">
+                                    <label for="kode_supplier">Kode Supplier</label>
+                                    <input type="text" name="kode_supplier" id="kode_supplier" class="form-control form-control-sm" placeholder="Kode Supplier" disabled/>
                                 </div>
-                                <div class="group-input" id="notifikasi_username">
-                                    <label for="username">Username</label>
-                                    <input type="text" name="username" id="username" class="form-control form-control-sm" placeholder="Username" disabled/>
+                                <div class="group-input" id="notifikasi_nama_supplier">
+                                    <label for="nama_supplier">Nama Supplier</label>
+                                    <input type="text" name="nama_supplier" id="nama_supplier" class="form-control form-control-sm" placeholder="Nama Supplier" disabled/>
                                 </div>
-                                <div class="group-input" id="notifikasi_email">
-                                    <label for="email">E-mail</label>
-                                    <input type="text" name="email" id="email" class="form-control form-control-sm" placeholder="E-mail" disabled/>
-                                </div>      
+                                <div class="group-input" id="notifikasi_no_telp_supplier">
+                                    <label for="no_telp_supplier">No Telp Supplier</label>
+                                    <input type="text" name="no_telp_supplier" id="no_telp_supplier" class="form-control form-control-sm" placeholder="No Telp Supplier" disabled/>
+                                </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="group-input" id="notifikasi_password">
-                                    <label for="password">Kata Sandi</label>
-                                    <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Kata Sandi" disabled/>
+                                <div class="group-input" id="notifikasi_no_telp_supplier">
+                                    <label for="email_supplier">E-mail Supplier</label>
+                                    <input type="text" name="email_supplier" id="email_supplier" class="form-control form-control-sm" placeholder="E-mail Supplier" disabled/>
                                 </div>
-                                <div class="group-input" id="notifikasi_passwordConf">
-                                    <label for="passwordConf">Kata Sandi Konfirmasi</label>
-                                    <input type="password" name="passwordConf" id="passwordConf" class="form-control form-control-sm" placeholder="Kata Sandi Konfirmasi" disabled/>
+                                <div class="group-input" id="notifikasi_alamat_supplier">
+                                    <label for="alamat_supplier">Alamat Supplier</label>
+                                    <textarea name="alamat_supplier" id="alamat_supplier" class="form-control" rows="3" disabled></textarea>
                                 </div>
                                 <div class="group-input" id="notifikasi_stts_aktif">
                                     <label for="stts_aktif">Status Aktif</label>
@@ -92,9 +92,9 @@
                             <thead>
                                 <tr>
                                     <th width="5%">no</th>
-                                    <th>Username</th>
+                                    <th>Kode</th>
                                     <th>Nama</th>
-                                    <th>Divisi</th>
+                                    <th>No Telp</th>
                                     <th width="10%" class="text-center">Aktif</th>
                                 </tr>
                             </thead>
@@ -120,7 +120,7 @@
 </div>
 
 <script src="<?=base_url()?>assets/admin/libs/sweetalert2/dist/sweetalert2.min.js"></script>
-
+<!-- Import Js Files -->
 <script>
 
     $(document).ready(function(){
@@ -144,20 +144,20 @@
                 $('.preloader').hide()
             },
             success:function(data){
-                $("#MyForm")[0].reset();
-                $("#MyForm input").prop("disabled", true);
                 $("#submit_button").prop("disabled", true);
+                $("#MyForm input, #MyForm textarea").prop("disabled", true);
+                $("#MyForm")[0].reset();
                 var html = ''
                 if(data.record.length > 0 ){
                     var no = ((parseInt(data.page-1))*parseInt(data.perpage)+1);
                     $.each(data.record, function( key, value ) {
                         html += `
-                            <tr data-id_record="`+value.id_users+`" class="table_edit">
+                            <tr data-id_record="`+value.id_supplier+`" class="table_edit">
                                 <td>${ no ++ }</td>
-                                <td>`+value.nama_users+`</td>
-                                <td>`+value.username_users+`</td>
-                                <td>`+value.nama_divisi+`</td>
-                                <td class="text-center">`+badge(value.stts_aktif_users == 1 ? 'success' : 'danger', value.stts_aktif_users == 1 ? 'aktif' : 'non aktif')+`</td>
+                                <td>`+value.kode_supplier+`</td>
+                                <td>`+value.nama_supplier+`</td>
+                                <td>`+ (value.no_telp_supplier == null ? '-' : value.no_telp_supplier)  +`</td>
+                                <td class="text-center">`+badge(value.stts_aktif_supplier == 1 ? 'success' : 'danger', value.stts_aktif_supplier == 1 ? 'aktif' : 'non aktif')+`</td>
                             </tr>
                         `
                     });
@@ -177,7 +177,6 @@
         })
     }
 
-
     var clickTimer = null;
     var delay = 1000; // Penundaan dalam milidetik (misalnya 300ms)
 
@@ -196,15 +195,19 @@
             var url = "<?=base_url(set_url($this->uri->segment(2).'/get_record'))?>"
 
             var detail = getJSON(url, { id: id_record })
-            $("#MyForm input").prop("disabled", true);
-            $("#submit_button").prop("disabled", true);
+            $('#id').val(detail.record.id_supplier);
+            $('#nama_supplier').val(detail.record.nama_supplier);
+            $('#kode_supplier').val(detail.record.kode_supplier);
+            $('#no_telp_supplier').val(detail.record.no_telp_supplier);
+            $('#email_supplier').val(detail.record.email_supplier);
+            $('#alamat_supplier').val(detail.record.alamat_supplier);
+            $('#stts_aktif').prop('checked', parseInt(detail.record.stts_aktif_supplier));
 
-            $('#id').val(detail.record.id_users)
-            $('#nama').val(detail.record.nama_users)
-            $('#username').val(detail.record.username_users)
-            $('#email').val(detail.record.email_users)
-            $('#stts_aktif').prop('checked', parseInt(detail.record.stts_aktif_users));
+            // Nonaktifkan input dan tombol submit
+            $("#MyForm input, #MyForm textarea").prop("disabled", true);
+            $("#submit_button").prop("disabled", true);
             
         }
     });
+
 </script>

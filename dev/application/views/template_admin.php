@@ -1,4 +1,3 @@
-
 <?php $this->view('template/backend/header') ?>
     <!-- Preloader -->
     
@@ -141,17 +140,24 @@
                                                     <div class="col-4">
                                                         <div class="position-relative ">
                                                             <span class="judul_master">MASTER</span>
-                                                            <!-- <a href="<?=base_url(set_url('group'))?>" class="d-flex align-items-center pb-1 position-relative">
+                                                            <a href="<?=base_url(set_url('divisi'))?>" class="d-flex align-items-center pb-1 position-relative">
+                                                                <div class="d-inline-block bg-top-menu">
+                                                                    <span class="fs-2 d-block text-white">
+                                                                        Manajemen Divisi
+                                                                    </span>
+                                                                </div>
+                                                            </a>
+                                                            <a href="<?=base_url(set_url('users'))?>" class="d-flex align-items-center pb-1 position-relative">
                                                                 <div class="d-inline-block bg-top-menu">
                                                                     <span class="fs-2 d-block text-white">
                                                                         Manajemen User
                                                                     </span>
                                                                 </div>
-                                                            </a> -->
-                                                            <a href="<?=base_url(set_url('users'))?>" class="d-flex align-items-center pb-1 position-relative">
+                                                            </a>
+                                                            <a href="<?=base_url(set_url('supplier'))?>" class="d-flex align-items-center pb-1 position-relative">
                                                                 <div class="d-inline-block bg-top-menu">
                                                                     <span class="fs-2 d-block text-white">
-                                                                        Manajemen User
+                                                                        Manajemen Supplier
                                                                     </span>
                                                                 </div>
                                                             </a>
@@ -221,7 +227,7 @@
                                                     <h5 class="mb-1 fs-3"><?=$_SESSION['username_users']?></h5>
                                                     <span class="mb-1 d-block text-dark">Owner</span>
                                                     <p class="mb-0 d-flex text-dark align-items-center gap-2">
-                                                        <i class="ti ti-mail fs-4"></i> email@info.com
+                                                        <i class="ti ti-mail fs-4"></i> <?=$_SESSION['email_users'] == null ? $_SESSION['email_users'] : '-' ?>
                                                     </p>
                                                 </div>
                                             </div>
